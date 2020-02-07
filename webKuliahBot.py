@@ -1,7 +1,7 @@
 from splinter import Browser
 from base64 import b64decode
-import pyautogui as p
-# import time as t
+# import pyautogui as p
+import time as t
 
 ############## START ###################
 # Membuat Instance dari class Browser
@@ -31,6 +31,8 @@ def dec_pw():
 def login():
 	# mengunjungi web kuliah
 	browser.visit('https://webkuliah.unas.ac.id/login/index.php')
+	# jeda 
+	t.sleep(3)
 	# mengisi username
 	username = dec_un()
 	browser.find_by_id('username').fill(username)
@@ -54,9 +56,9 @@ def on_web_kuliah(link):
 	# Data List | DALAM MASA PENGEMBANGAN
 	# data links dengan key mata kuliah masing-masing
 	DataKeyMataKuliah = [
-	'id=153898','id=153898','id=153898',
-	'id=153898','id=153898','id=153898',
-	'id=153898','id=153898','id=153898','id=153898']
+	'id=153898','id=153909','id=154719',
+	'id=153924','id=154067','id=154079',
+	'id=151110','id=154115','id=154126','id=150274']
 
 	# looping | DALAM MASA PENGEMBANGAN
 	# agar menampilkan on_web_kuliah terus menerus
@@ -65,15 +67,15 @@ def on_web_kuliah(link):
 		print('''
 			####### MATA KULIAH #######
 			# 1. Algoritma            #
-			# 2. namamatakuliah       #
-			# 3. namamatakuliah       #
-			# 4. namamatakuliah       #
-			# 5. namamatakuliah       #
-			# 6. namamatakuliah       #
-			# 7. namamatakuliah       #
-			# 8. namamatakuliah       #
-			# 9. namamatakuliah       #
-			# 10. namamatakuliah      #
+			# 2. Aljabar              #
+			# 3. Bahasa Indonesia     #
+			# 4. Bahasa Inggris       #
+			# 5. Fisika               #
+			# 6. Kalkulus I           #
+			# 7. PKN                  #
+			# 8. PTKI                 #
+			# 9. Praktikum Algo       #
+			# 10. Praktikum Fisika    #
 
 			# tekan 'q' untuk Log out #
 			###########################
@@ -83,13 +85,23 @@ def on_web_kuliah(link):
 		# menyimpan value dari input pada variabel userPilihan
 		userPilihan = input('Masukkan nomer mata kuliah: ')
 		
-		# Pengambil Keputusan
+		# Kondisi
 		# jika userpilihan = 'q', lakukan logout
-		# jika userpilihan = '0' atau userpilihan '' atau userpilihan > 10
-		# lakukan loncat ke input user
-		if userPilihan == 'q':
-			logout()
-		elif userPilihan == '0' or userPilihan == '' or int(userPilihan) > 10:
+		# selain syarat diatas, abaikan lalu beri pesan warning
+		# kembali ke input user
+		if userPilihan >= 'a' and userPilihan <= 'z':
+			if userPilihan == 'q':
+				logout()
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif userPilihan >= 'A' and userPilihan <= 'Z':
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif int(userPilihan) == 0 or int(userPilihan) > 10:
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif userPilihan == '':
+			print('WARNING: input tidak cocok, silahkan isi kembali')
 			continue
 
 		# Proses 
@@ -120,37 +132,47 @@ def in_one_lesson(link):
 	# sampai keadaan False
 	while True:
 		print('''
-			######## FORUM MATA KULIAH #######
+			######## FORUM MATA KULIAH #########
 
-			 1. Materi Kuliah Dokumen           
-			 2. Materi Video E-learning
-			 3. Tugas Kuliah-1
-			 4. Tugas Kuliah-2
-			 5. Perkuliahan Online
-			 6. UTS
-			 7. UAS    
+				1. Materi Kuliah Dokumen           
+				2. Materi Video E-learning
+				3. Tugas Kuliah-1
+				4. Tugas Kuliah-2
+				5. Perkuliahan Online
+				6. UTS
+				7. UAS    
 
-			 tekan 'b' untuk ke Dashboard/on_web_kuliah
-			 tekan 'q' untuk Logout/Keluar
-			##################################
+				tekan 'b' ke Dashboard
+				tekan 'q' Keluar Browser/Logout
+
+			####################################
 			''')
 
 		# Input User
 		# menaruh value input ke dalam variabel userPilihan
 		userPilihan = input('Masukkan nomer mata kuliah: ')
 
-		# Pengambil Keputusan
+		# Kondisi
 		# jika userPilihan == 'b', masuk ke fungsi on_web_kuliah 
 		# jika userPilihan == 'q', masuk ke fungsi logout 
-		# jika userPilihan == '0' atau userPilihan == '' atau userPilihan > 7
-		# lakukan loncat ke input user
-		if userPilihan == 'b':
-			# browser.reload()
-			# browser.back()
-			on_web_kuliah('https://webkuliah.unas.ac.id/course/view.php?')
-		elif userPilihan == 'q':
-			logout()
-		elif userPilihan == '0' or userPilihan == '' or int(userPilihan) > 7:
+		# selain syarat diatas, abaikan lalu beri pesan warning
+		# kembali ke input user
+		if userPilihan >= 'a' and userPilihan <= 'z':
+			if userPilihan == 'b':
+				browser.find_by_css('ul.list-group:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click()
+				on_web_kuliah('https://webkuliah.unas.ac.id/course/view.php?')
+			elif userPilihan == 'q':
+				logout()
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif userPilihan >= 'A' and userPilihan <= 'Z':
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif int(userPilihan) == 0 or int(userPilihan) > 7:
+			print('WARNING: input tidak cocok, silahkan isi kembali')
+			continue
+		elif userPilihan == '':
+			print('WARNING: input tidak cocok, silahkan isi kembali')
 			continue
 
 		# P# Proses 
@@ -167,7 +189,7 @@ def in_one_lesson(link):
 
 ############################ LOGOUT ##################################
 
-# Fungsi Logout
+# Fungsi Logout 
 # melakukan logout dari webkuliah maupun webbrowser
 def logout():
 	# Inisalisasi Variabel
@@ -177,10 +199,11 @@ def logout():
 	# keluar webkuliah
 	# keluar browser
 	# keluar program
-    profile = 882, 165
-    keluarWeb = 729, 452
-    p.click(profile,duration=1)
-    p.click(keluarWeb,duration=1)
+    # profile = 882, 165
+    # keluarWeb = 729, 452
+    # p.click(profile,duration=1)
+    # p.click(keluarWeb,duration=1)
+    t.sleep(3)
     browser.quit()
     exit()
 
@@ -193,3 +216,7 @@ on_web_kuliah(links)
 logout()
 
 # MENJALANKAN SCRIPT #
+
+# CATATAN #
+# masih mencari cara logout menggunakan element html
+# fungsi on_web_kuliah mengganti nama mata pelajaran dan keylink
