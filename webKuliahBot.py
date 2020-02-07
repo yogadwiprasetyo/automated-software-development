@@ -89,8 +89,6 @@ def on_web_kuliah(link):
 		# lakukan loncat ke input user
 		if userPilihan == 'q':
 			logout()
-			browser.quit()
-			break
 		elif userPilihan == '0' or userPilihan == '' or int(userPilihan) > 10:
 			continue
 
