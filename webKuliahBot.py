@@ -177,7 +177,7 @@ def in_one_lesson(link):
 			print('WARNING: input tidak cocok, silahkan isi kembali')
 			continue
 
-		# P# Proses 
+		# Proses 
 		# mengambil keysection dengan indeks input user - 1
 		# lalu simpan ke dalam variabel linkPilihan
 		# lakukan penggabungan antara link parameter dengan variabel linkPilihan
@@ -219,6 +219,6 @@ logout()
 
 # MENJALANKAN SCRIPT #
 
-# CATATAN #
+# CATATAN | DALAM PENGEMBANGAN #
 # masih mencari cara logout menggunakan element html
 # fungsi on_web_kuliah mengganti nama mata pelajaran dan keylink
