@@ -105,12 +105,12 @@ def on_web_kuliah(link):
 		in_one_lesson(linkReady)
 
 # Fungsi Di Dalam Satu Mata Kuliah
-# menampilkan on_web_kuliah pada satu mata kuliah
+# menampilkan menu pada satu mata kuliah
 def in_one_lesson(link):
 	# Data List
 	# menaruh keysection
 	# untuk dipakai link parameter
-	DataInMataKuliah = [
+	KeySection = [
 	'#section-3', '#section-4', '#section-5',
 	'#section-6','#section-8','#section-9','#section-10'
 	]
@@ -159,7 +159,7 @@ def in_one_lesson(link):
 		# lakukan penggabungan antara link parameter dengan variabel linkPilihan
 		# lalu simpan hasil penggabungan pada variabel linkReady
 		# klik link dengan parameter variabel linkReady
-		linkPilihan = DataInMataKuliah[int(userPilihan)-1]
+		linkPilihan = KeySection[int(userPilihan)-1]
 		linkReady = link+linkPilihan
 		browser.links.find_by_href(linkReady).click()
 
