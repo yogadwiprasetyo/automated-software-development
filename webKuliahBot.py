@@ -153,13 +153,15 @@ def in_one_lesson(link):
 		userPilihan = input('Masukkan nomer mata kuliah: ')
 
 		# Kondisi
-		# jika userPilihan == 'b', masuk ke fungsi on_web_kuliah 
+		# jika userPilihan == 'b', balik ke dashboard 
+		# lalu masuk fungsi on_web_kuliah 
 		# jika userPilihan == 'q', masuk ke fungsi logout 
 		# selain syarat diatas, abaikan lalu beri pesan warning
 		# kembali ke input user
 		if userPilihan >= 'a' and userPilihan <= 'z':
 			if userPilihan == 'b':
-				browser.find_by_css('ul.list-group:nth-child(2) > li:nth-child(1) > a:nth-child(1)').click()
+				dashboard = 'ul.list-group:nth-child(2) > li:nth-child(1) > a:nth-child(1)'
+				browser.find_by_css(dashboard).click()
 				on_web_kuliah('https://webkuliah.unas.ac.id/course/view.php?')
 			elif userPilihan == 'q':
 				logout()
