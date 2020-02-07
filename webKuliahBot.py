@@ -9,6 +9,7 @@ import time as t
 browser = Browser()
 
 ############################ LOGIN ###############################
+# Fungsi dec_un
 # decode username
 def dec_un():
     f = open("u.txt", "r")
@@ -18,6 +19,7 @@ def dec_un():
 
     return str(un)
 
+# Fungsi dec_pw
 # decode password
 def dec_pw():
     f = open("p.txt", "r")
@@ -27,19 +29,20 @@ def dec_pw():
 
     return str(pw)
 
-# login
+# Fungsi login
+# login to web
 def login():
 	# mengunjungi web kuliah
-	browser.visit('https://webkuliah.unas.ac.id/login/index.php')
 	# jeda 
-	t.sleep(3)
 	# mengisi username
+	# mengisi password
+	# submit/masuk web kuliah
+	browser.visit('https://webkuliah.unas.ac.id/login/index.php')
+	t.sleep(3)
 	username = dec_un()
 	browser.find_by_id('username').fill(username)
-	# mengisi password
 	password = dec_pw()
 	browser.find_by_id('password').fill(password)
-	# submit/masuk web kuliah
 	browser.find_by_id('loginbtn').click()
 
 ############################ LOGIN ###############################
@@ -50,18 +53,18 @@ def login():
 # awalan link dari mata kuliah
 links = 'https://webkuliah.unas.ac.id/course/view.php?'
 
-# Fungsi on_web_kuliah Utama
+# Fungsi on_web_kuliah 
 # menampilkan pilihan on_web_kuliah
 def on_web_kuliah(link):
 	# Data List | DALAM MASA PENGEMBANGAN
-	# data links dengan key mata kuliah masing-masing
+	# data keylinks mata kuliah
 	DataKeyMataKuliah = [
 	'id=153898','id=153909','id=154719',
 	'id=153924','id=154067','id=154079',
 	'id=151110','id=154115','id=154126','id=150274']
 
 	# looping | DALAM MASA PENGEMBANGAN
-	# agar menampilkan on_web_kuliah terus menerus
+	# agar menampilkan menu pilihan terus menerus
 	# sampai keadaan False
 	while True:
 		print('''
@@ -105,7 +108,8 @@ def on_web_kuliah(link):
 			continue
 
 		# Proses 
-		# mengambil datakeymatakuliah dengan indeks input user - 1
+		# mengambil datakeymatakuliah dengan indeks
+		# dari hasil (input user - 1)
 		# lalu simpan ke dalam variabel linkPilihan
 		# lakukan penggabungan antara link parameter dengan variabel linkPilihan
 		# lalu simpan hasil penggabungan pada variabel linkReady
@@ -116,19 +120,18 @@ def on_web_kuliah(link):
 		browser.links.find_by_href(linkReady).click()
 		in_one_lesson(linkReady)
 
-# Fungsi Di Dalam Satu Mata Kuliah
+# Fungsi in_one_lesson
 # menampilkan menu pada satu mata kuliah
 def in_one_lesson(link):
 	# Data List
-	# menaruh keysection
-	# untuk dipakai link parameter
+	# Data keysection
 	KeySection = [
 	'#section-3', '#section-4', '#section-5',
 	'#section-6','#section-8','#section-9','#section-10'
 	]
 
 	# looping
-	# agar menampilkan on_web_kuliah terus menerus
+	# agar menampilkan menu pilihan terus menerus
 	# sampai keadaan False
 	while True:
 		print('''
@@ -178,7 +181,8 @@ def in_one_lesson(link):
 			continue
 
 		# Proses 
-		# mengambil keysection dengan indeks input user - 1
+		# mengambil keysection dengan indeks
+		# dari hasil (input user - 1)
 		# lalu simpan ke dalam variabel linkPilihan
 		# lakukan penggabungan antara link parameter dengan variabel linkPilihan
 		# lalu simpan hasil penggabungan pada variabel linkReady
@@ -194,6 +198,7 @@ def in_one_lesson(link):
 # Fungsi Logout 
 # melakukan logout dari webkuliah maupun webbrowser
 def logout():
+	# CARA PERTAMA #
 	# Inisalisasi Variabel
 	# menaruh posisi profile pada variabel profile
 	# menaruh posisi logout pada variabel keluarWeb
@@ -205,6 +210,7 @@ def logout():
     # keluarWeb = 729, 452
     # p.click(profile,duration=1)
     # p.click(keluarWeb,duration=1)
+    # CARA KEDUA #
     t.sleep(3)
     browser.quit()
     exit()
@@ -221,4 +227,4 @@ logout()
 
 # CATATAN | DALAM PENGEMBANGAN #
 # masih mencari cara logout menggunakan element html
-# fungsi on_web_kuliah mengganti nama mata pelajaran dan keylink
+# fungsi on_web_kuliah akan mengganti nama mata pelajaran dan keylink
