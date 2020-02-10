@@ -1,0 +1,35 @@
+# SEBELUM MENJALANKAN #
+# install module splinter 
+# install module selenium 
+# install webdriver
+# install module pyautogui
+
+# link splinter
+https://pypi.org/project/splinter/
+
+# link selenium 
+https://pypi.org/project/selenium/
+
+# link web driver
+Firefox: 	https://github.com/mozilla/geckodriver/releases
+
+# link pyautogui
+https://pypi.org/project/PyAutoGUI/
+
+# CARA MENJALANKAN #
+# PENTING: set web driver terlebih dahulu sebelum menjalankan.
+# arahkan ke tempat file main.py
+# jalankan file main.py
+windows = py main.py
+Mac/linux = python3 main.py
+
+Selebihnya liat dokumentasi Splinter
+https://splinter.readthedocs.io/en/latest/
+
+
+
+
+
+
+
+
