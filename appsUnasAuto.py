@@ -2,9 +2,7 @@
 from selenium.webdriver import *
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium import *
 from base64 import b64decode
-# import pyautogui as p
 import time as t
 
 # Insialisasi Class
@@ -18,7 +16,6 @@ def dec_un():
     enc_un = b64decode(f.read())
     un = enc_un.decode()
     f.close()
-
     return str(un)
 
 # decode password
@@ -27,7 +24,6 @@ def dec_pw():
     enc_pw = b64decode(f.read())
     pw = enc_pw.decode()
     f.close()
-
     return str(pw)
 
 # START FUNGSI LOGIN #
@@ -91,7 +87,6 @@ def handling_wind_tab(window):
 	        b = input('tekan b, ke menu: ')
 	        if str(b) is 'b':
 	        	webdriver.close()
-	        	# kembali ke window utama
 	        	webdriver.switch_to.window(window)
 	        	menu_utama()
 	        else:
@@ -240,23 +235,21 @@ def menu_utama():
 	# Looping
 	while True:
 		pilihan_menu()
-		iUser = input('Pilih nomer: ')
+		user = input('Pilih nomer: ')
 		# Kondisi
-		if str(iUser) == 'q':
+		if str(user) == 'q':
 			webdriver.quit()
 			exit()
-		elif str(iUser) == 'DT':
+		elif str(user) == 'DT':
 			data_pribadi()
-		elif int(iUser) >= 1 and int(iUser) <= 7:
-			menu_kiri(iUser,original_window)
-		elif int(iUser) >= 8 and int(iUser) <= 14:
-			menu_kanan(iUser,original_window)
+		elif int(user) >= 1 and int(user) <= 7:
+			menu_kiri(user,original_window)
+		elif int(user) >= 8 and int(user) <= 14:
+			menu_kanan(user,original_window)
 		else:
 			print('ERROR: input tidak diketahui')
 # END FUNGSI MENU UTAMA #
 
-# Inisalisai Variabel
-# posisi tempat username, password dan tombol login
 
 # JALANKAN SCRIPT #
 login()
