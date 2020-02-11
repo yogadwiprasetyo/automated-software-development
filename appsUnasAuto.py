@@ -4,7 +4,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium import *
 from base64 import b64decode
-import pyautogui as p
+# import pyautogui as p
 import time as t
 
 # Insialisasi Class
@@ -30,31 +30,27 @@ def dec_pw():
 
     return str(pw)
 
-# FUNGSI LOGIN #
+# START FUNGSI LOGIN #
 # fungsi login
 # melakukan pengisian form login
 # lalu masuk ke website
-# mempunyai parameter pUsernm, pPw dan pLgn
-def login(pUsrnm,pPw,pLgn):
+def login():
 	# Proses Login
 	# jeda selama 10 detik
 	# membuat variabel username dan password
 	# untuk mengisi form login
 	# ketik username dan password
 	# lalu klik tombol login
-    t.sleep(10)
+    t.sleep(7)
     username = dec_un()
     password = dec_pw()
-    p.click(pUsrnm,duration=0.25)
-    p.typewrite(username,interval=0.1)
-    p.click(pUsrnm,duration=0.25)
-    p.click(pPw,duration=0.25)
-    p.typewrite(password,interval=0.1)
-    p.click(pLgn,duration=0.25)
+    webdriver.find_element_by_name("username").send_keys(username)
+    webdriver.find_element_by_name("password").send_keys(password)
+    webdriver.find_element_by_name("Submit").click()
 # END FUNGSI LOGIN #
 
 
-# FUNGSI ALERT #
+# START FUNGSI ALERT #
 # Fungsi handling_alert
 # menangani alert yang terdapat di browser 
 def handling_alert():
@@ -92,7 +88,7 @@ def handling_wind_tab(window):
 	for window_handle in webdriver.window_handles:
 	    if window_handle != window:
 	        webdriver.switch_to.window(window_handle)
-	        b = input('tekan b kembali ke menu: ')
+	        b = input('tekan b, ke menu: ')
 	        if str(b) is 'b':
 	        	webdriver.close()
 	        	# kembali ke window utama
@@ -104,7 +100,7 @@ def handling_wind_tab(window):
 # END FUNGSI NEW WINDOW/TAB #
 
 
-# FUNGSI MENU KIRI #
+# START FUNGSI MENU KIRI #
 # Fungsi menu_kiri
 # melakukan pilihan fungsi 1-7
 # pada fungsi menu_utama
@@ -134,7 +130,7 @@ def menu_kiri(user,window):
 # END FUNGSI MENU PERTAMA #
 
 
-# FUNGSI MENU KANAN #
+# START FUNGSI MENU KANAN #
 # Fungsi menu_kanan
 # melakukan pilihan fungsi 8-14
 # pada fungsi menu_utama
@@ -175,7 +171,7 @@ def menu_kanan(user,window):
 # END FUNGSI MENU KANAN #
 
 
-# FUNGSI PILIHAN MENU #
+# START FUNGSI PILIHAN MENU #
 # Fungsi pilihan_menu
 # menampilkan pilihan pada menu utama
 def pilihan_menu():
@@ -198,7 +194,7 @@ def pilihan_menu():
 # END FUNGSI PILIHAN MENU #
 
 
-# FUNGSI DATA PRIBADI #
+# START FUNGSI DATA PRIBADI #
 # Fungsi data_pribadi
 # menampilkan data pribadi
 def data_pribadi():
@@ -211,8 +207,9 @@ def data_pribadi():
 	# selain syarat input diatas, beri pesan error
 	# Element Xpath
 	xpathData = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td/table'
-	tampilanData = webdriver.find_element_by_xpath(xpathData).text
-	print('####### DATA PRIBADI #######\n\n{}\n\n####### DATA PRIBADI #######'.format(tampilanData))
+	elementData = webdriver.find_element_by_xpath(xpathData).text
+	tampilanData = '####### DATA PRIBADI #######\n\n{}\n\n####### DATA PRIBADI #######'.format(elementData)
+	print(tampilanData)
 	user = input('tekan b untuk kembali ke menu: ')
 	# Kondisi
 	if user == 'b':
@@ -222,7 +219,7 @@ def data_pribadi():
 # END FUNGSI DATA PRIBADI #
 
 
-# FUNGSI MENU UTAMA #
+# START FUNGSI MENU UTAMA #
 # Fungsi menu_utama #
 # melakukan semua proses awal 
 def menu_utama():
@@ -256,24 +253,13 @@ def menu_utama():
 			menu_kanan(iUser,original_window)
 		else:
 			print('ERROR: input tidak diketahui')
+# END FUNGSI MENU UTAMA #
 
 # Inisalisai Variabel
 # posisi tempat username, password dan tombol login
-posUsername = 536, 311
-posPassword = 531, 346
-posLogin = 486, 401
 
 # JALANKAN SCRIPT #
-login(posUsername,posPassword,posLogin)
-t.sleep(5)
+login()
 handling_alert()
 menu_utama()
 # END JALANKAN SCRIPT #
-
-# CATATAN #
-# LOGIN MASIH MENGGUNAKAN PYAUTOGUI
-
-# KEKURANGAN MENGGUNAKAN PYAUTOGUI 
-# KETIKA INGIN DIGUNAKAN PADA LAYAR 
-# YANG BERBEDA, HARUS MENCARI POSISI LAGI
-# INTINYA TIDAK BISA DIGUNAKAN PADA KOMPUTER LAIN
