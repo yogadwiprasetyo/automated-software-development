@@ -76,9 +76,21 @@ def ngetik_maya(link):
 	browser.visit(link)
 	print('mulai mengetik')
 
-	# Looping
+		# Looping
 	# melakukan proses waktu dan mengetik kata
 	while True:
+		# Kata
+		# jika element id cocok dengan yang dicari
+		# rubah element tersebut menjadi teks
+		# lalu masukkan value elemen ke variabel kata
+		# ketik teks dengan kata sebagai parameter
+		# lalu tekan space
+		# ulangi sampai waktu habis
+		kata = browser.find_by_id('currentword').text
+		p.typewrite(kata)
+		p.press('space')
+
+
 		# Waktu 
 		# jika waktu = '0', lakukan looping
 		# looping bertujuan memproses pertanyaan yang diberikan
@@ -100,22 +112,12 @@ def ngetik_maya(link):
 				iUser3 = input('Ketik lagi? (y): ')
 				if iUser3 is 'y':
 					browser.reload()
-					t.sleep(3)
+					t.sleep(2)
+					# break
 				else:
 					print('ERROR: input tidak cocok')
 					browser.quit()
 					exit()
-
-		# Kata
-		# jika element id cocok dengan yang dicari
-		# rubah element tersebut menjadi teks
-		# lalu masukkan value elemen ke variabel kata
-		# ketik teks dengan kata sebagai parameter
-		# lalu tekan space
-		# ulangi sampai waktu habis
-		kata = browser.find_by_id('currentword').text
-		p.typewrite(kata)
-		p.press('space')
 # END FUNGSI WEB NGETIK MAYA #
 
 
