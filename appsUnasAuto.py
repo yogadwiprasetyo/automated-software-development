@@ -62,6 +62,8 @@ def handling_alert():
 		menu_utama()
 	else:
 		print('ERROR: input tidak diketahui')
+		alert.accept()
+		menu_utama()
 # AKHIR FUNGSI ALERT #
 
 
@@ -89,83 +91,86 @@ def handling_wind_tab(window):
 	        	menu_utama()
 	        else:
 	        	print('ERROR: input tidak diketahui')
-	        	exit()
+	        	webdriver.close()
+	        	webdriver.switch_to.window(window)
+	        	menu_utama()
 # AKHIR FUNGSI NEW WINDOW/TAB #
 
 
-# AWAL FUNGSI MENU KIRI #
-# Fungsi menu_kiri
-# memproses pilihan fungsi 1-7
+# AWAL FUNGSI MENU PILIH
+# Fungsi menu_pilih
+# memproses pemilihan user
 # mempunyai parameter user dan window
-def menu_kiri(user,window):
-	# Proses Menu Kiri
-	# Element Xpath
-	# menaruh xpath element pada variabel xpathMenuKiri
-	# mencari element lalu klik
-	# jeda selama 1 detik
-	# Kondisi Pertama
-	# jika window ada yang baru
-	# lakukan fungsi handling new window
-	# Kondisi Kedua
-	# jika alert tampil
-	# lakukan fungsi handling alert
-	# Element Xpath
-	xpathMenuKiri = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[{}]/td'.format(user)
-	webdriver.find_element_by_xpath(xpathMenuKiri).click()
-	t.sleep(1)
-	# Kondisi Pertama
-	if len(window) != 1:
-		handling_wind_tab(window)
-	# Kondisi Kedua
-	if EC.alert_is_present():
-		handling_alert()
-# AKHIR FUNGSI MENU PERTAMA #
-
-
-# AWAL FUNGSI MENU KANAN #
-# Fungsi menu_kanan
-# melakukan pilihan fungsi 8-14
-# mempunyai parameter user dan window
-def menu_kanan(user,window):
-	# Proses Menu Kanan
-	# Looping
-	# merubah input 8 - 15
-	# menjadi 1 - 7,
-	# karena xpath hanya bisa diakses 1 - 7
-	# Element Xpath
-	# menaruh xpath element pada variabel xpathMenuKanan
-	# mencari element lalu klik
-	# jeda selama 1 detik
-	# Kondisi Pertama
-	# jika window ada yang baru
-	# lakukan fungsi handling new window
-	# Kondisi Kedua
-	# jika alert tampil
-	# lakukan fungsi handling alert
-	# Looping
-	i = 1
-	for j in range(8, 15):
-		if j == int(user):
-			user = i
-			break
-		i += 1
-	# Element Xpath
-	xpathMenuKanan = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[3]/table/tbody/tr[{}]/td'.format(user)
-	webdriver.find_element_by_xpath(xpathMenuKanan).click()
-	t.sleep(1)
-	# Kondisi Pertama
-	if len(window) != 1:
-		handling_wind_tab(window)
-	# Kondisi Kedua
-	if EC.alert_is_present():
-		handling_alert()
-# AKHIR FUNGSI MENU KANAN #
+def menu_pilih(user, window):
+	# Kondisi Utama
+	# jika user 1-7, melakukan pencarian element dengan index dari user
+	# jika user 8-14, melakukan pencarian element dengan index dari user
+	# selain syarat diatas, beri pesan error, lalu keluar program
+	if int(user) >= 1 and int(user) <= 7:
+		# Proses Menu Kiri
+		# Element Xpath
+		# menaruh xpath element pada variabel xpathMenuKiri
+		# mencari element lalu klik
+		# jeda selama 1 detik
+		# Kondisi Pertama
+		# jika window ada yang baru
+		# lakukan fungsi handling new window
+		# Kondisi Kedua
+		# jika alert tampil
+		# lakukan fungsi handling alert
+		# Element Xpath
+		xpathMenuKiri = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[1]/table/tbody/tr[{}]/td'.format(user)
+		webdriver.find_element_by_xpath(xpathMenuKiri).click()
+		t.sleep(1)
+		# Kondisi Pertama
+		if len(window) != 1:
+			handling_wind_tab(window)
+		# Kondisi Kedua
+		if EC.alert_is_present():
+			handling_alert()
+	elif int(user) >= 8 and int(user) <= 14:
+		# Proses Menu Kanan
+		# Looping
+		# merubah input 8 - 14
+		# menjadi 1 - 7,
+		# karena xpath hanya bisa diakses 1 - 7
+		# Element Xpath
+		# menaruh xpath element pada variabel xpathMenuKanan
+		# mencari element lalu klik
+		# jeda selama 1 detik
+		# Kondisi Pertama
+		# jika window ada yang baru
+		# lakukan fungsi handling new window
+		# Kondisi Kedua
+		# jika alert tampil
+		# lakukan fungsi handling alert
+		# Looping
+		i = 1
+		for j in range(8, 15):
+			if j == int(user):
+				user = i
+				break
+			i += 1
+		# Element Xpath
+		xpathMenuKanan = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[3]/table/tbody/tr[{}]/td'.format(user)
+		webdriver.find_element_by_xpath(xpathMenuKanan).click()
+		t.sleep(1)
+		# Kondisi Pertama
+		if len(window) != 1:
+			handling_wind_tab(window)
+		# Kondisi Kedua
+		if EC.alert_is_present():
+			handling_alert()
+	else:
+		print('ERROR: input tidak diketahui')
+		menu_utama()
+# AWAL FUNGSI MENU PILIH
 
 
 # AWAL FUNGSI PILIHAN MENU #
-# Fungsi pilihan_menu
+# Fungsi tampilan_menu
 # menampilkan pilihan pada menu utama
-def pilihan_menu():
+def tampilan_menu():
 	print('''
 	############ ACADEMIC ONLINE SYSTEM ############
 
@@ -207,6 +212,7 @@ def data_pribadi():
 		menu_utama()
 	else:
 		print('ERROR: input tidak diketahui')
+		menu_utama()
 # AKHIR FUNGSI DATA PRIBADI #
 
 
@@ -223,14 +229,13 @@ def menu_utama():
 	# Kondisi 
 	# jika input user = 'q', keluar browser dan program
 	# jika input user = 'DT', tampilkan Data Pribadi
-	# jika input user = 1 - 8, masuk ke fungsi menu kiri
-	# jika inpu user = 8 -14, masuk ke fungsi menu kanan
+	# jika input user = 1 - 14, lakukan fungsi menu_pilih
 	# selain syarat input diatas, beri pesan error
 	t.sleep(1)
 	original_window = webdriver.current_window_handle
 	# Looping
 	while True:
-		pilihan_menu()
+		tampilan_menu()
 		user = input('Pilih nomer: ')
 		# Kondisi
 		if str(user) == 'q':
@@ -238,10 +243,8 @@ def menu_utama():
 			exit()
 		elif str(user) == 'DT':
 			data_pribadi()
-		elif int(user) >= 1 and int(user) <= 7:
-			menu_kiri(user,original_window)
-		elif int(user) >= 8 and int(user) <= 14:
-			menu_kanan(user,original_window)
+		elif int(user) >= 1 and int(user) <= 14:
+			menu_pilih(user,original_window)
 		else:
 			print('ERROR: input tidak diketahui')
 # AKHIR FUNGSI MENU UTAMA #
