@@ -21,7 +21,7 @@ def ngetik_maya(link):
 		# Pesan mulai mengetik
 		# Looping
 		# melakukan proses waktu dan mengetik kata
-		t.sleep(2)
+		t.sleep(5)
 		print('mulai mengetik')
 		while True:
 			# Kata

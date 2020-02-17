@@ -34,6 +34,7 @@ https://pypi.org/project/PyAutoGUI/
 
 # KETIKA FILE BERJALAN #
 # tekan 'y', lalu enter untuk memulai mengetik
+# tutup command prompt / terminal, ketika mengetik
 # jika sudah selesai mengetik, buka kembali command prompt / terminal
 # lalu isi pertanyaan yang di berikan
 # kembali ke browser
@@ -78,6 +79,7 @@ https://pypi.org/project/PyAutoGUI/
 # WHEN FILE IS RUN #
 # press 'y' then enter for start typing
 # When you finish typing, reopen the command prompt / terminal
+# close command prompt / terminal, when typing
 # then fill in the questions given
 # Returns to the browser
 
