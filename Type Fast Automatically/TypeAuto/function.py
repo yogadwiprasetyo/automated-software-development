@@ -19,10 +19,12 @@ def ngetik_maya(link):
 	if iUser == 'y':
 		# Jeda
 		# Pesan mulai mengetik
-		# Looping
-		# melakukan proses waktu dan mengetik kata
+		# Click element input
 		t.sleep(5)
 		print('mulai mengetik')
+		browser.find_by_xpath('//*[@id="input"]').click()
+		# Looping
+		# melakukan proses waktu dan mengetik kata
 		while True:
 			# Kata
 			# jika element id cocok dengan yang dicari
@@ -57,7 +59,8 @@ def ngetik_maya(link):
 					iUser3 = input('Ketik lagi? (y): ')
 					if iUser3 is 'y':
 						browser.reload()
-						t.sleep(2)
+						t.sleep(5)
+						print('mulai mengetik')
 					else:
 						print('ERROR: input tidak cocok')
 						browser.quit()
