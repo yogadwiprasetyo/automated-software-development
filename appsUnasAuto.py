@@ -1,5 +1,4 @@
 ################################# START ########################################
-
 # IMPORT MODULE #
 from selenium.webdriver import *
 from selenium.webdriver.support.ui import WebDriverWait
@@ -15,23 +14,22 @@ webdriver.get('http://apps.unas.ac.id:8080/login.do')
 # decode username
 def dec_un():
     f = open("u.txt", "r")
-    enc_un = b64decode(f.read())
-    un = enc_un.decode()
+    isiFile = b64decode(f.read())
+    un = isiFile.decode()
     f.close()
     return str(un)
 
 # decode password
 def dec_pw():
     f = open("p.txt", "r")
-    enc_pw = b64decode(f.read())
-    pw = enc_pw.decode()
+    isiFile = b64decode(f.read())
+    pw = isiFile.decode()
     f.close()
     return str(pw)
 
 # AWAL FUNGSI LOGIN #
 # fungsi login
-# melakukan pengisian form login
-# lalu masuk ke website
+# melakukan proses login
 def login():
 	# Proses Login
 	# jeda selama 10 detik
@@ -48,7 +46,7 @@ def login():
 
 # AWAL FUNGSI ALERT #
 # Fungsi handling_alert
-# menangani alert yang terdapat di browser 
+# menangani alert yang tampil 
 def handling_alert():
 	# Proses Handling Alert
 	# tunggu tampil alert selama 10 detik
@@ -59,18 +57,17 @@ def handling_alert():
 	b = input('tekan b, ke menu: ')
 	if str(b) is 'b':
 		alert.accept()
-		menu_utama()
+		menu()
 	else:
 		print('ERROR: input tidak diketahui')
 		alert.accept()
-		menu_utama()
+		menu()
 # AKHIR FUNGSI ALERT #
 
 
 # FUNGSI NEW WINDOW/TAB #
 # Fungsi handling_wind_tab
-# digunakan untuk menangani window baru yang tampil
-# mempunyai parameter window
+# menangani window atau tab baru yang tampil
 def handling_wind_tab(window):
 	# Proses Handling Window
 	# jeda waktu selama 1 detik
@@ -88,26 +85,25 @@ def handling_wind_tab(window):
 	        if str(b) is 'b':
 	        	webdriver.close()
 	        	webdriver.switch_to.window(window)
-	        	menu_utama()
+	        	menu()
 	        else:
 	        	print('ERROR: input tidak diketahui')
 	        	webdriver.close()
 	        	webdriver.switch_to.window(window)
-	        	menu_utama()
+	        	menu()
 # AKHIR FUNGSI NEW WINDOW/TAB #
 
 
-# AWAL FUNGSI MENU PILIH
-# Fungsi menu_pilih
-# memproses pemilihan user
-# mempunyai parameter user dan window
-def menu_pilih(user, window):
+# AWAL FUNGSI PILIHAN
+# Fungsi pilihan
+# memproses pilihan user
+def pilihan(user, window):
 	# Kondisi Utama
 	# jika user 1-7, melakukan pencarian element dengan index dari user
 	# jika user 8-14, melakukan pencarian element dengan index dari user
-	# selain syarat diatas, beri pesan error, lalu keluar program
+	# selain syarat diatas, beri pesan error, kembali ke menu utama
 	if int(user) >= 1 and int(user) <= 7:
-		# Proses Menu Kiri
+		# Proses User 1 - 7
 		# Element Xpath
 		# menaruh xpath element pada variabel xpathMenuKiri
 		# mencari element lalu klik
@@ -129,7 +125,7 @@ def menu_pilih(user, window):
 		if EC.alert_is_present():
 			handling_alert()
 	elif int(user) >= 8 and int(user) <= 14:
-		# Proses Menu Kanan
+		# Proses User 8 - 14
 		# Looping
 		# merubah input 8 - 14
 		# menjadi 1 - 7,
@@ -163,11 +159,11 @@ def menu_pilih(user, window):
 			handling_alert()
 	else:
 		print('ERROR: input tidak diketahui')
-		menu_utama()
-# AWAL FUNGSI MENU PILIH
+		menu()
+# AKHIR FUNGSI PILIHAN
 
 
-# AWAL FUNGSI PILIHAN MENU #
+# AWAL FUNGSI TAMPILAN MENU #
 # Fungsi tampilan_menu
 # menampilkan pilihan pada menu utama
 def tampilan_menu():
@@ -187,7 +183,7 @@ def tampilan_menu():
 			tekan 'q' keluar
 
 	############ ACADEMIC ONLINE SYSTEM ############''')
-# AKHIR FUNGSI PILIHAN MENU #
+# AKHIR FUNGSI TAMPILAN MENU #
 
 
 # AWAL FUNGSI DATA PRIBADI #
@@ -200,7 +196,7 @@ def data_pribadi():
 	# mencari element lalu klik
 	# Kondisi
 	# jika input user=b, ke menu utama
-	# selain syarat input diatas, beri pesan error
+	# selain syarat input diatas, beri pesan error, kembali ke menu
 	# Element Xpath
 	xpathData = '/html/body/table/tbody/tr[2]/td/table/tbody/tr/td[2]/table/tbody/tr[2]/td/table/tbody/tr/td/table'
 	elementData = webdriver.find_element_by_xpath(xpathData).text
@@ -209,18 +205,18 @@ def data_pribadi():
 	user = input('tekan b untuk kembali ke menu: ')
 	# Kondisi
 	if user == 'b':
-		menu_utama()
+		menu()
 	else:
 		print('ERROR: input tidak diketahui')
-		menu_utama()
+		menu()
 # AKHIR FUNGSI DATA PRIBADI #
 
 
-# AWAL FUNGSI MENU UTAMA #
-# Fungsi menu_utama #
-# melakukan semua proses awal 
-def menu_utama():
-	# Proses Menu Utama
+# AWAL FUNGSI MENU #
+# Fungsi menu #
+# melakukan proses awal menu
+def menu():
+	# Proses menu
 	# jeda waktu 1 detik
 	# simpan ID window utama pada variabel original_window
 	# Looping
@@ -229,7 +225,7 @@ def menu_utama():
 	# Kondisi 
 	# jika input user = 'q', keluar browser dan program
 	# jika input user = 'DT', tampilkan Data Pribadi
-	# jika input user = 1 - 14, lakukan fungsi menu_pilih
+	# jika input user = 1 - 14, lakukan fungsi pemilihan
 	# selain syarat input diatas, beri pesan error
 	t.sleep(1)
 	original_window = webdriver.current_window_handle
@@ -244,15 +240,15 @@ def menu_utama():
 		elif str(user) == 'DT':
 			data_pribadi()
 		elif int(user) >= 1 and int(user) <= 14:
-			menu_pilih(user,original_window)
+			pilihan(user,original_window)
 		else:
 			print('ERROR: input tidak diketahui')
-# AKHIR FUNGSI MENU UTAMA #
+# AKHIR FUNGSI MENU #
 
 
 # AWAL JALANKAN SCRIPT #
 login()
 handling_alert()
-menu_utama()
+menu()
 # AKHIR JALANKAN SCRIPT #
 ################################# FINISH ########################################

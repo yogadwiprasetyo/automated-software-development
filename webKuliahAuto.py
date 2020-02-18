@@ -14,16 +14,16 @@ browser = Browser()
 # decode username
 def dec_un():
     file = open("u.txt", "r")
-    enc_un = b64decode(file.read())
-    un = enc_un.decode()
+    isiFile = b64decode(file.read())
+    un = isiFile.decode()
     file.close()
     return str(un)
 
 # decode password
 def dec_pw():
     file = open("p.txt", "r")
-    enc_pw = b64decode(file.read())
-    pw = enc_pw.decode()
+    isiFile = b64decode(file.read())
+    pw = isiFile.decode()
     file.close()
     return str(pw)
 
@@ -43,9 +43,9 @@ def login():
 
 
 ############################ DALAM MASA PENGEMBANGAN | AWAL WEBKULIAH ###############################
-# AWAL Fungsi menu_web_kuliah | DALAM MASA PENGEMBANGAN
-# menampilkan pilihan pada on_web_kuliah
-def menu_web_kuliah():
+# AWAL Fungsi tampilan_matkul | DALAM MASA PENGEMBANGAN
+# menampilkan pilihan pada matkul
+def tampilan_matkul():
     print('''
             ####### MATA KULIAH #######
             # 1. Algoritma            #
@@ -61,11 +61,11 @@ def menu_web_kuliah():
 
             # tekan 'q' untuk Log out #
             ###########################''')
-# AKHIR Fungsi menu_web_kuliah | DALAM MASA PENGEMBANGAN
+# AKHIR Fungsi tampilan_matkul | DALAM MASA PENGEMBANGAN
 
-# AWAL Fungsi menu_one_lesson
-# menampilkan pilihan pada in_one_lesson
-def menu_one_lesson(judul):
+# AWAL Fungsi tampilan_forum
+# menampilkan pilihan pada forum
+def tampilan_forum(namaMatkul):
     print('''
             # Forum {} #
 
@@ -80,128 +80,127 @@ def menu_one_lesson(judul):
                 tekan 'b' ke Dashboard
                 tekan 'q' Keluar Browser/Logout
 
-            # Forum {} #'''.format(judul,judul))
-# AKHIR Fungsi menu_one_lesson
+            # Forum {} #'''.format(namaMatkul,namaMatkul))
+# AKHIR Fungsi tampilan_forum
 
-# AWAL Fungsi error_input
+# AWAL Fungsi warning
 # memberi pesan error input
 def warning():
     print('WARNING: input tidak diketahui, silahkan isi kembali!')
-# AKHIR Fungsi error_input
+# AKHIR Fungsi warning
 
-# AWAL Fungsi on_web_kuliah Utama | DALAM MASA PENGEMBANGAN
-# menampilkan pilihan on_web_kuliah
-def on_web_kuliah():
+# AWAL Fungsi matkul | DALAM MASA PENGEMBANGAN
+# memproses pilihan user pada mata kuliah
+def matkul():
     # Inisialisasi Variabel
     # awal link dari mata kuliah
     linkCourse = 'https://webkuliah.unas.ac.id/course/view.php?'
 
     # Data List | DALAM MASA PENGEMBANGAN
-    # data links dengan key mata kuliah masing-masing
-    DataKeyMataKuliah = [
+    # data key mata kuliah 
+    DataKeyMatkul = [
     'id=153898','id=153909','id=154719',
     'id=153924','id=154067','id=154079',
     'id=151110','id=154115','id=154126','id=150274']
 
     # looping 
-    # agar menampilkan menu_web_kuliah terus menerus
+    # agar menampilkan tampilan_matkul terus menerus
     # sampai keadaan False
     while True:
-        menu_web_kuliah()
+        tampilan_matkul()
 
         # Input User
-        # menyimpan value dari input pada variabel userInLesson
-        userOnWeb = input('''pilih nomer mata kuliah: ''')
+        # menyimpan value dari input pada variabel userMatkul
+        userMatkul = input('pilih nomer mata kuliah: ')
         
         # Kondisi
-        # jika userOnWeb = 'q', lakukan logout
+        # jika userMatkul = 'q', lakukan logout
         # selain syarat diatas, abaikan lalu beri pesan warning
         # kembali ke input user
-        if userOnWeb >= 'a' and userOnWeb <= 'z':
-            if userOnWeb == 'q':
+        if userMatkul >= 'a' and userMatkul <= 'z':
+            if userMatkul == 'q':
                 logout()
             warning()
             continue
-        elif userOnWeb >= 'A' and userOnWeb <= 'Z':
+        elif userMatkul >= 'A' and userMatkul <= 'Z':
             warning()
             continue
-        elif int(userOnWeb) == 0 or int(userOnWeb) > 10:
+        elif int(userMatkul) == 0 or int(userMatkul) > 10:
             warning()
             continue
-        elif userOnWeb == '':
+        elif userMatkul == '':
             warning()
             continue
 
         # Proses 
-        # mengambil datakeymatakuliah dengan indeks, input user dikurang satu
-        # lalu simpan ke dalam variabel linkPilihan
-        # lakukan penggabungan antara link parameter dengan variabel linkPilihan
-        # lalu simpan hasil penggabungan pada variabel linkReady
-        # klik link dengan parameter variabel linkReady
-        # ambil judul mata kuliah
-        # lalu masuk ke fungsi in_one_lesson 
-        keyPilihanUser = DataKeyMataKuliah[int(userOnWeb)-1]
-        linkReady = linkCourse + keyPilihanUser
-        browser.links.find_by_href(linkReady).click()
-        judul = browser.find_by_css('.page-header-headings > h1:nth-child(1)').text
-        in_one_lesson(linkReady,judul)
-# AKHIR Fungsi on_web_kuliah Utama | DALAM MASA PENGEMBANGAN
+        # mengambil DataKeyMatkul dengan indeks, input user dikurang satu
+        # lalu simpan ke dalam variabel keyMatkulUser
+        # lakukan penggabungan antara linkCourse dengan keyMatkulUser
+        # lalu simpan hasil penggabungan pada variabel linkReadyMatkul
+        # mencari link yang cocok dengan linkReadyMatkul, lalu klik
+        # ambil nama mata kuliah
+        # lalu masuk ke fungsi forum 
+        keyMatkulUser = DataKeyMatkul[int(userMatkul)-1]
+        linkReadyMatkul = linkCourse + keyMatkulUser
+        browser.links.find_by_href(linkReadyMatkul).click()
+        namaMatkul = browser.find_by_css('.page-header-headings > h1:nth-child(1)').text
+        forum(linkReadyMatkul,namaMatkul)
+# AKHIR Fungsi matkul | DALAM MASA PENGEMBANGAN
 
-# AWAL Fungsi Di Dalam Satu Mata Kuliah
-# menampilkan menu pada satu mata kuliah
-def in_one_lesson(link,judul):
+# AWAL Fungsi forum
+# memproses pilihan user pada forum
+def forum(linkMatkul,namaMatkul):
     # Data List
-    # menaruh Datakeysection
-    # untuk dipakai link parameter
+    # Key forum pada mata kuliah
     DataKeySection = [
     '#section-3', '#section-4', '#section-5',
     '#section-6','#section-8','#section-9','#section-10'
     ]
 
     # looping
-    # agar menampilkan on_web_kuliah terus menerus
+    # agar menampilkan tampilan_forum terus menerus
     # sampai keadaan False
     while True:
-        menu_one_lesson(judul)
+        tampilan_forum(namaMatkul)
 
         # Input User
-        # menaruh value input ke dalam variabel userInLesson
-        userInLesson = input('pilih nomer forum: ')
+        # menaruh value input ke dalam variabel userForum
+        userForum = input('pilih nomer forum: ')
 
         # Kondisi
-        # jika userInLesson == 'b', masuk ke fungsi on_web_kuliah 
-        # jika userInLesson == 'q', masuk ke fungsi logout 
+        # jika userForum == 'b', masuk ke fungsi matkul 
+        # jika userForum == 'q', masuk ke fungsi logout 
         # selain syarat diatas, abaikan lalu beri pesan warning
         # kembali ke input user
-        if userInLesson >= 'a' and userInLesson <= 'z':
-            if userInLesson == 'b':
+        if userForum >= 'a' and userForum <= 'z':
+            if userForum == 'b':
                 dashboard = 'ul.list-group:nth-child(2) > li:nth-child(1) > a:nth-child(1)'
                 browser.find_by_css(dashboard).click()
-                on_web_kuliah()
-            elif userInLesson == 'q':
+                matkul()
+            elif userForum == 'q':
                 logout()
             warning()
             continue
-        elif userInLesson >= 'A' and userInLesson <= 'Z':
+        elif userForum >= 'A' and userForum <= 'Z':
             warning()
             continue
-        elif int(userInLesson) == 0 or int(userInLesson) > 7:
+        elif int(userForum) == 0 or int(userForum) > 7:
             warning()
             continue
-        elif userInLesson == '':
+        elif userForum == '':
             warning()
             continue
 
         # Proses 
-        # mengambil Datakeysection dengan indeks input user - 1
-        # lalu simpan ke dalam variabel linkPilihan
-        # lakukan penggabungan antara link parameter dengan variabel linkPilihan
+        # mengambil Datakeysection dengan indeks input user dikurang satu
+        # lalu simpan ke dalam variabel KeySectionUser
+        # lakukan penggabungan antara link parameter dengan keySectionUser
         # lalu simpan hasil penggabungan pada variabel linkReady
-        # klik link dengan parameter variabel linkReady
-        keySectionUser = DataKeySection[int(userInLesson)-1]
-        linkReady = link + keySectionUser
-        browser.links.find_by_href(linkReady).click()
-# AKHIR Fungsi Di Dalam Satu Mata Kuliah
+        # mencari link yang cocok dengan linkReadyForum, lalu klik
+        keySectionUser = DataKeySection[int(userForum)-1]
+        linkReadyForum = linkMatkul + keySectionUser
+        browser.links.find_by_href(linkReadyForum).click()
+# AKHIR Fungsi forum
 ############################ DALAM MASA PENGEMBANGAN | AKHIR WEBKULIAH ###############################
 
 
@@ -216,7 +215,7 @@ def logout():
 
 # AWAL MENJALANKAN SCRIPT #
 login()
-on_web_kuliah()
+matkul()
 logout()
 # AKHIR MENJALANKAN SCRIPT #
 
