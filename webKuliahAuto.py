@@ -216,7 +216,6 @@ def logout():
 # AWAL MENJALANKAN SCRIPT #
 login()
 matkul()
-logout()
 # AKHIR MENJALANKAN SCRIPT #
 
 ######################################### FINISH ##########################################
